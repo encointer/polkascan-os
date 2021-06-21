@@ -55,6 +55,18 @@ Truncate each table with runtime, example: truncate runtime;
 * Check http://127.0.0.1:8080/node-template/runtime-type if all type are now correctly supported
 * Monitor http://127.0.0.1:8080/node-template/harvester/admin if blocks are being processed and try to restart by pressing "Process blocks in harvester queue" if process is interupted.
 
+## Debug in Pycharm
+
+To debug a python project in the docker container:
+* open the folder of the project in pycharm.  
+* add a python debug server configuration with: IDE hostname: host.docker.internal & Port: use a free port  
+* Add to the requirements.txt of the project you want to debug the debugger: pydevd-pycharm~=211.7442.45 (version might differ, in the configuration window it tells you what version to copy)  
+* Add the import statement to the main.py file of the project (also mentioned in the configurations window):    
+import pydevd_pycharm
+pydevd_pycharm.settrace('host.docker.internal', port=62575, stdoutToServer=True, stderrToServer=True) 
+* Start the whole polkascan-os in terminal (for example with docker-compose -p gesell -f docker-compose.substrate-node-template.yml up --build)  
+* Set breakpoints and start the debugger in Pycharm
+
 ## Cleanup Docker
 Use the following commands with caution to cleanup your Docker environment.
 
